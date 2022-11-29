@@ -1,23 +1,23 @@
 package com.example.demo2022.java;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class CyclicBarrierDemo {
-
+public class SemaphoreDemo {
     public static void main(String[] args) throws InterruptedException {
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(3);
+        Semaphore cyclicBarrier = new Semaphore(3);
         ExecutorService threadPool = Executors.newFixedThreadPool(3);
         List<Future<String>> futureList = new ArrayList<>(3);
         for (int i = 0; i < 3; i++) {
             final int j = i;
-            Future<String> future = threadPool.submit(new Task(j, cyclicBarrier));
+            Future<String> future = threadPool.submit(new SemaphoreDemo.Task(j, cyclicBarrier));
             futureList.add(future);
         }
         futureList.stream().map(e -> {
@@ -36,9 +36,9 @@ public class CyclicBarrierDemo {
 
         private int j;
 
-        private CyclicBarrier cyclicBarrier;
+        private Semaphore cyclicBarrier;
 
-        public Task(int j, CyclicBarrier cyclicBarrier) {
+        public Task(int j, Semaphore cyclicBarrier) {
             this.j = j;
             this.cyclicBarrier = cyclicBarrier;
         }
@@ -51,7 +51,7 @@ public class CyclicBarrierDemo {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                cyclicBarrier.await();
+                cyclicBarrier.acquire();
             }
             System.out.println(System.currentTimeMillis() + "结束:" + j);
             return j + ",OK!";
