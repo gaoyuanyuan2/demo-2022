@@ -1,4 +1,4 @@
-package com.example.demo2022.java.juc;
+package com.example.demo2022.java.lock;
 
 import java.util.concurrent.TimeUnit;
 
