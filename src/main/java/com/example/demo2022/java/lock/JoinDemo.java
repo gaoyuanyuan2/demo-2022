@@ -2,7 +2,7 @@ package com.example.demo2022.java.lock;
 
 import java.util.concurrent.TimeUnit;
 
-public class JoinTest {
+public class JoinDemo {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("s1" + System.currentTimeMillis());
         Thread t1 = new Thread(() -> {
