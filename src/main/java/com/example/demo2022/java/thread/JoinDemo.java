@@ -1,4 +1,4 @@
-package com.example.demo2022.java.lock;
+package com.example.demo2022.java.thread;
 
 import java.util.concurrent.TimeUnit;
 
