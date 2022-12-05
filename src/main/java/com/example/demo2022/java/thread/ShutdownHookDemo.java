@@ -1,9 +1,5 @@
 package com.example.demo2022.java.thread;
 
-import ch.qos.logback.core.Context;
-import ch.qos.logback.core.hook.ShutdownHook;
-import ch.qos.logback.core.status.Status;
-
 public class ShutdownHookDemo {
     public static void main(String[] args) {
         Runtime runtime = Runtime.getRuntime();

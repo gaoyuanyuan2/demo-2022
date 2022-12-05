@@ -1,9 +1,5 @@
 package com.example.demo2022.java.thread;
 
-import ch.qos.logback.core.hook.ShutdownHook;
-
-import java.util.concurrent.TimeUnit;
-
 public class DaemonThreadDemo {
     public static void main(String[] args) {
         Thread t1 = new Thread(() -> {
