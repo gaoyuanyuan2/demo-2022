@@ -1,13 +1,20 @@
 package com.example.demo2022.java.collection;
 
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * 安全集合
+ */
 public class ThreadSafeCollectionDemo {
+
     public static void main(String[] args) {
         // Java9
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);

@@ -1,6 +1,10 @@
 package com.example.demo2022.java.thread;
 
+/**
+ * 守候线程
+ */
 public class DaemonThreadDemo {
+
     public static void main(String[] args) {
         Thread t1 = new Thread(() -> {
             try {

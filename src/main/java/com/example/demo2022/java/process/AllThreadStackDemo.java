@@ -7,7 +7,11 @@ import java.lang.management.ThreadInfo;
 
 import java.util.Arrays;
 
+/**
+ * 线程信息
+ */
 public class AllThreadStackDemo {
+
     public static void main(String[] args) {
         ThreadMXBean threadMXBean = (ThreadMXBean)ManagementFactory.getThreadMXBean();
         long[] threadIds = threadMXBean.getAllThreadIds();

@@ -12,12 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SemaphoreDemo {
     public static void main(String[] args) throws InterruptedException {
-        Semaphore cyclicBarrier = new Semaphore(3);
+        Semaphore semaphore = new Semaphore(3);
         ExecutorService threadPool = Executors.newFixedThreadPool(3);
         List<Future<String>> futureList = new ArrayList<>(3);
         for (int i = 0; i < 3; i++) {
             final int j = i;
-            Future<String> future = threadPool.submit(new SemaphoreDemo.Task(j, cyclicBarrier));
+            Future<String> future = threadPool.submit(new SemaphoreDemo.Task(j, semaphore));
             futureList.add(future);
         }
         futureList.stream().map(e -> {

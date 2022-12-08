@@ -6,7 +6,11 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 
+/**
+ * 开启子进程
+ */
 public class ChildProcessDemo {
+
     public static void main(String[] args) throws IOException {
         OperatingSystemMXBean operatingSystemMXBean = ManagementFactory.getOperatingSystemMXBean();
         if (operatingSystemMXBean.getName().startsWith("Windows")) {

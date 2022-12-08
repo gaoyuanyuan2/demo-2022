@@ -2,7 +2,11 @@ package com.example.demo2022.java.collection;
 
 import java.util.concurrent.*;
 
+/**
+ * 阻塞队里对比
+ */
 public class BlockingQueueDemo {
+
     public static void main(String[] args) throws Exception {
 
         offer(new ArrayBlockingQueue<>(2));
