@@ -3,6 +3,9 @@ package com.example.demo2022.java.collection;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 
+/**
+ * 同步队列
+ */
 public class SynchronousQueueDemo {
 
     public static void main(String[] args) throws Exception {

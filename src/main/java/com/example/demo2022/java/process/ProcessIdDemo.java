@@ -3,6 +3,9 @@ package com.example.demo2022.java.process;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 
+/**
+ * 进程id
+ */
 public class ProcessIdDemo {
 
     public static void main(String[] args) {

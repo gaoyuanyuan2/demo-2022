@@ -2,7 +2,11 @@ package com.example.demo2022.java.thread;
 
 import java.util.Arrays;
 
+/**
+ * 完成所有线程
+ */
 public class CompleteAllThreadsDemo {
+
     public static void main(String[] args) {
         Thread t1 = new Thread(CompleteAllThreadsDemo::action, "t1");
         Thread t2 = new Thread(CompleteAllThreadsDemo::action, "t2");
