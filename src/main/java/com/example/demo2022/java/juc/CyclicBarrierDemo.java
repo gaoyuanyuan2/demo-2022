@@ -14,7 +14,7 @@ public class CyclicBarrierDemo {
 
     public static void main(String[] args) throws InterruptedException, BrokenBarrierException {
         int barrierCount = 3;
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(barrierCount + 1);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(barrierCount );
         ExecutorService threadPool = Executors.newFixedThreadPool(3);
         List<Future<String>> futureList = new ArrayList<>(barrierCount);
         for (int i = 0; i < barrierCount; i++) {
@@ -22,7 +22,6 @@ public class CyclicBarrierDemo {
             Future<String> future = threadPool.submit(new Task(j, cyclicBarrier));
             futureList.add(future);
         }
-        cyclicBarrier.await();
         // 所有结果返回后再获取结果
         futureList.stream().map(e -> {
             try {
