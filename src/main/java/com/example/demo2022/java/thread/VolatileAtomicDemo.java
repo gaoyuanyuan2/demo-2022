@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class VolatileAtomicDemo {
 
-    private static volatile int count = 0;
+    private static volatile long count = 0;
     
     private static AtomicInteger atomicCount = new AtomicInteger(0);
 
