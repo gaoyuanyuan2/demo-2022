@@ -37,27 +37,29 @@ public class CyclicBarrierDemo {
 
     private static class Task implements Callable<String> {
 
-        private int j;
+        private int param;
 
         private CyclicBarrier cyclicBarrier;
 
-        public Task(int j, CyclicBarrier cyclicBarrier) {
-            this.j = j;
+        public Task(int param, CyclicBarrier cyclicBarrier) {
+            this.param = param;
             this.cyclicBarrier = cyclicBarrier;
         }
 
         @Override
         public String call() throws Exception {
-            System.out.println(System.currentTimeMillis() + "开始：" + j);
+            System.out.println(System.currentTimeMillis() + "开始：" + param);
             try {
-                TimeUnit.SECONDS.sleep(j);
+                TimeUnit.SECONDS.sleep(param);
+                System.out.println(System.currentTimeMillis() + "结束:" + param);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
                 cyclicBarrier.await();
             }
-            System.out.println(System.currentTimeMillis() + "结束:" + j);
-            return j + ",OK!";
+            // 同时结束
+            System.out.println(System.currentTimeMillis() + "等待结束:" + param);
+            return param + ",OK!";
         }
     }
 }
