@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    <context:annotation-config/>-->
+
+<!--    <context:component-scan base-package="org.acme" />-->
+
+    <!-- Root BeanDefinition 不需要合并，不存在 parent -->
+    <!-- 普通 beanDefinition GenericBeanDefinition -->
+    <!-- 经过合并后 GenericBeanDefinition 变成 RootBeanDefinition -->
+    <bean id="user" class="com.example.demo2022.domain.User">
+        <property name="id" value="1"/>
+        <property name="name" value="小马哥"/>
+        <property name="city" value="HANGZHOU"/>
+        <property name="workCities" value="BEIJING,HANGZHOU"/>
+        <property name="lifeCities">
+            <list>
+                <value>BEIJING</value>
+                <value>SHANGHAI</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+        <property name="targetBeanName" value="user"/>
+    </bean>
+
+</beans>
