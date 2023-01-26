@@ -1,4 +1,4 @@
-package com.example.demo2022.spring;
+package com.example.demo2022.spring.lookup;
 
 import com.example.demo2022.domain.User;
 import org.springframework.beans.factory.BeanFactory;
@@ -23,4 +23,5 @@ public class DependencyLookupDemo {
         User user = objectFactory.getObject();
         System.out.println("延迟查找：" + user);
     }
+
 }
