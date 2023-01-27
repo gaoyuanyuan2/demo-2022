@@ -24,6 +24,8 @@ import javax.annotation.PostConstruct;
 /**
  * ResolvableDependency 作为依赖来源
  *
+ * 只能被依赖注入（类型），回调注入
+ *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @since
  */
