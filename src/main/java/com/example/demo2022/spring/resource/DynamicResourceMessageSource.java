@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.demo2022.spring.source;
+package com.example.demo2022.spring.resource;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.ResourceLoaderAware;
