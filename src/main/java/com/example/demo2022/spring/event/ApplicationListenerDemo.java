@@ -22,6 +22,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.context.event.EventListenerMethodProcessor;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
@@ -29,7 +30,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * {@link ApplicationListener} 示例
- *
+ * {@link EventListener} 原理： {@link EventListenerMethodProcessor} 过滤标记@EventListener 方法 ，addApplicationListener()
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see ApplicationListener
  * @see EventListener
