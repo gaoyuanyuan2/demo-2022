@@ -20,6 +20,7 @@ package com.example.demo2022.spring.metadata;
 import com.example.demo2022.domain.User;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -50,4 +51,5 @@ public class PropertiesBeanDefinitionReaderDemo {
         User user = beanFactory.getBean("user", User.class);
         System.out.println(user);
     }
+
 }
