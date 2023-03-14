@@ -28,7 +28,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.function.SingletonSupplier;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -37,50 +36,46 @@ import java.util.stream.Collectors;
 @Configuration(proxyBeanMethods = false)
 public abstract class AbstractMyCacheConfiguration implements ImportAware {
 
-	@Nullable
-	protected AnnotationAttributes enableMyCache;
+    @Nullable
+    protected AnnotationAttributes enableMyCache;
 
-	@Nullable
-	protected Supplier<Executor> executor;
-
-	@Nullable
-	protected Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler;
+    @Nullable
+    protected Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler;
 
 
-	@Override
-	public void setImportMetadata(AnnotationMetadata importMetadata) {
-		this.enableMyCache = AnnotationAttributes.fromMap(
-				importMetadata.getAnnotationAttributes(EnableMyCache.class.getName()));
-		if (this.enableMyCache == null) {
-			throw new IllegalArgumentException(
-					"@EnableMyCache is not present on importing class " + importMetadata.getClassName());
-		}
-	}
+    @Override
+    public void setImportMetadata(AnnotationMetadata importMetadata) {
+        this.enableMyCache = AnnotationAttributes.fromMap(
+                importMetadata.getAnnotationAttributes(EnableMyCache.class.getName()));
+        if (this.enableMyCache == null) {
+            throw new IllegalArgumentException(
+                    "@EnableMyCache is not present on importing class " + importMetadata.getClassName());
+        }
+    }
 
-	/**
-	 * Collect any {@link MyCacheConfigurer} beans through autowiring.
-	 */
-	@Autowired
-	void setConfigurers(ObjectProvider<MyCacheConfigurer> configurers) {
-		Supplier<MyCacheConfigurer> configurer = SingletonSupplier.of(() -> {
-			List<MyCacheConfigurer> candidates = configurers.stream().collect(Collectors.toList());
-			if (CollectionUtils.isEmpty(candidates)) {
-				return null;
-			}
-			if (candidates.size() > 1) {
-				throw new IllegalStateException("Only one MyCacheConfigurer may exist");
-			}
-			return candidates.get(0);
-		});
-		this.executor = adapt(configurer, MyCacheConfigurer::getMyCacheExecutor);
-		this.exceptionHandler = adapt(configurer, MyCacheConfigurer::getMyCacheUncaughtExceptionHandler);
-	}
+    /**
+     * Collect any {@link MyCacheConfigurer} beans through autowiring.
+     */
+    @Autowired
+    void setConfigurers(ObjectProvider<MyCacheConfigurer> configurers) {
+        Supplier<MyCacheConfigurer> configurer = SingletonSupplier.of(() -> {
+            List<MyCacheConfigurer> candidates = configurers.stream().collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(candidates)) {
+                return null;
+            }
+            if (candidates.size() > 1) {
+                throw new IllegalStateException("Only one MyCacheConfigurer may exist");
+            }
+            return candidates.get(0);
+        });
+        this.exceptionHandler = adapt(configurer, MyCacheConfigurer::getMyCacheUncaughtExceptionHandler);
+    }
 
-	private <T> Supplier<T> adapt(Supplier<MyCacheConfigurer> supplier, Function<MyCacheConfigurer, T> provider) {
-		return () -> {
-			MyCacheConfigurer configurer = supplier.get();
-			return (configurer != null ? provider.apply(configurer) : null);
-		};
-	}
+    private <T> Supplier<T> adapt(Supplier<MyCacheConfigurer> supplier, Function<MyCacheConfigurer, T> provider) {
+        return () -> {
+            MyCacheConfigurer configurer = supplier.get();
+            return (configurer != null ? provider.apply(configurer) : null);
+        };
+    }
 
 }

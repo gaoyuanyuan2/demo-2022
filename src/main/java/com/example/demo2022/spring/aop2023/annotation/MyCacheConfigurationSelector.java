@@ -19,28 +19,26 @@ package com.example.demo2022.spring.aop2023.annotation;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.lang.Nullable;
-import org.springframework.scheduling.annotation.ProxyAsyncConfiguration;
 
 
 public class MyCacheConfigurationSelector extends AdviceModeImportSelector<EnableMyCache> {
 
-	// TODO
-	private static final String MY_CACHE_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME =
-			"org.springframework.scheduling.aspectj.AspectJAsyncConfiguration";
+    // TODO
+    private static final String MY_CACHE_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME =
+            "MY_CACHE_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME";
 
 
-
-	@Override
-	@Nullable
-	public String[] selectImports(AdviceMode adviceMode) {
-		switch (adviceMode) {
-			case PROXY:
-				return new String[] {ProxyMyCacheConfiguration.class.getName()};
-			case ASPECTJ:
-				return new String[] {MY_CACHE_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME};
-			default:
-				return null;
-		}
-	}
+    @Override
+    @Nullable
+    public String[] selectImports(AdviceMode adviceMode) {
+        switch (adviceMode) {
+            case PROXY:
+                return new String[]{ProxyMyCacheConfiguration.class.getName()};
+            case ASPECTJ:
+                return new String[]{MY_CACHE_EXECUTION_ASPECT_CONFIGURATION_CLASS_NAME};
+            default:
+                return null;
+        }
+    }
 
 }

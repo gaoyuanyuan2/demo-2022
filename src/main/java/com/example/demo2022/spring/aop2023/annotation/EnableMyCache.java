@@ -19,7 +19,6 @@ package com.example.demo2022.spring.aop2023.annotation;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
-import org.springframework.scheduling.annotation.AsyncConfigurationSelector;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.lang.annotation.Annotation;

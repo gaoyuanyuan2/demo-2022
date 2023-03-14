@@ -17,32 +17,22 @@
 package com.example.demo2022.spring.aop2023.annotation;
 
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheUncaughtExceptionHandler;
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.lang.Nullable;
-import org.springframework.scheduling.annotation.AbstractAsyncConfiguration;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.util.concurrent.Executor;
+import java.util.Map;
 
 public interface MyCacheConfigurer {
 
-	/**
-	 * The {@link Executor} instance to be used when processing async
-	 * method invocations.
-	 */
-	@Nullable
-	default Executor getMyCacheExecutor() {
-		return null;
-	}
 
-	/**
-	 * The {@link MyCacheUncaughtExceptionHandler} instance to be used
-	 * when an exception is thrown during an asynchronous method execution
-	 * with {@code void} return type.
-	 */
-	@Nullable
-	default MyCacheUncaughtExceptionHandler getMyCacheUncaughtExceptionHandler() {
-		return null;
-	}
+    @Nullable
+    default Map<String, String> getCache() {
+        return null;
+    }
+
+ 
+    @Nullable
+    default MyCacheUncaughtExceptionHandler getMyCacheUncaughtExceptionHandler() {
+        return null;
+    }
 
 }

@@ -36,7 +36,7 @@ public class ProxyMyCacheConfiguration extends AbstractMyCacheConfiguration {
     public MyCacheAnnotationBeanPostProcessor myCacheAdvisor() {
         Assert.notNull(this.enableMyCache, "@EnableMyCache annotation metadata was not injected");
         MyCacheAnnotationBeanPostProcessor bpp = new MyCacheAnnotationBeanPostProcessor();
-        bpp.configure(this.executor, this.exceptionHandler);
+        bpp.configure(this.exceptionHandler);
         Class<? extends Annotation> customMyCacheAnnotation = this.enableMyCache.getClass("annotation");
         if (customMyCacheAnnotation != AnnotationUtils.getDefaultValue(EnableMyCache.class, "annotation")) {
             bpp.setMyCacheAnnotationType(customMyCacheAnnotation);

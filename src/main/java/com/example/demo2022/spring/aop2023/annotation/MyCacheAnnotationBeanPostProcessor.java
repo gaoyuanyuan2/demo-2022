@@ -26,7 +26,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.function.SingletonSupplier;
 
 import java.lang.annotation.Annotation;
-import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 
@@ -35,9 +34,6 @@ public class MyCacheAnnotationBeanPostProcessor extends AbstractBeanFactoryAware
 
 
     protected final Log logger = LogFactory.getLog(getClass());
-
-    @Nullable
-    private Supplier<Executor> executor;
 
     @Nullable
     private Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler;
@@ -51,17 +47,10 @@ public class MyCacheAnnotationBeanPostProcessor extends AbstractBeanFactoryAware
     }
 
 
-    public void configure(
-            @Nullable Supplier<Executor> executor, @Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
-
-        this.executor = executor;
+    public void configure(@Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
     }
 
-
-    public void setExecutor(Executor executor) {
-        this.executor = SingletonSupplier.of(executor);
-    }
 
     public void setExceptionHandler(MyCacheUncaughtExceptionHandler exceptionHandler) {
         this.exceptionHandler = SingletonSupplier.of(exceptionHandler);
@@ -78,7 +67,7 @@ public class MyCacheAnnotationBeanPostProcessor extends AbstractBeanFactoryAware
     public void setBeanFactory(BeanFactory beanFactory) {
         super.setBeanFactory(beanFactory);
 
-        MyCacheAnnotationAdvisor advisor = new MyCacheAnnotationAdvisor(this.executor, this.exceptionHandler);
+        MyCacheAnnotationAdvisor advisor = new MyCacheAnnotationAdvisor(this.exceptionHandler);
         if (this.myCacheAnnotationType != null) {
             advisor.setMyCacheAnnotationType(this.myCacheAnnotationType);
         }

@@ -18,27 +18,20 @@ package com.example.demo2022.spring.aop2023.interceptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 
 import java.lang.reflect.Method;
 
-/**
- * A default {@link AsyncUncaughtExceptionHandler} that simply logs the exception.
- *
- * @author Stephane Nicoll
- * @author Juergen Hoeller
- * @since 4.1
- */
+
 public class SimpleMyCacheUncaughtExceptionHandler implements MyCacheUncaughtExceptionHandler {
 
-	private static final Log logger = LogFactory.getLog(SimpleMyCacheUncaughtExceptionHandler.class);
+    private static final Log logger = LogFactory.getLog(SimpleMyCacheUncaughtExceptionHandler.class);
 
 
-	@Override
-	public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-		if (logger.isErrorEnabled()) {
-			logger.error("Unexpected exception occurred invoking async method: " + method, ex);
-		}
-	}
+    @Override
+    public void handleUncaughtException(Throwable ex, Method method, Object... params) {
+        if (logger.isErrorEnabled()) {
+            logger.error("Unexpected exception occurred invoking async method: " + method, ex);
+        }
+    }
 
 }

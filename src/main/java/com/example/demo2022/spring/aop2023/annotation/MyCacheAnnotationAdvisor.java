@@ -19,118 +19,99 @@ package com.example.demo2022.spring.aop2023.annotation;
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheUncaughtExceptionHandler;
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.support.AbstractPointcutAdvisor;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.lang.Nullable;
-import org.springframework.scheduling.annotation.AnnotationAsyncExecutionInterceptor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.function.SingletonSupplier;
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 
 @SuppressWarnings("serial")
 public class MyCacheAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
-	private Advice advice;
+    private Advice advice;
 
-	private Pointcut pointcut;
-
-
-	/**
-	 * Create a new {@code AsyncAnnotationAdvisor} for bean-style configuration.
-	 */
-	public MyCacheAnnotationAdvisor() {
-		this((Supplier<Executor>) null, (Supplier<MyCacheUncaughtExceptionHandler>) null);
-	}
+    private Pointcut pointcut;
 
 
-	public MyCacheAnnotationAdvisor(
-			@Nullable Executor executor, @Nullable MyCacheUncaughtExceptionHandler exceptionHandler) {
-
-		this(SingletonSupplier.ofNullable(executor), SingletonSupplier.ofNullable(exceptionHandler));
-	}
+    public MyCacheAnnotationAdvisor() {
+        this( (Supplier<MyCacheUncaughtExceptionHandler>) null);
+    }
 
 
-	@SuppressWarnings("unchecked")
-	public MyCacheAnnotationAdvisor(
-			@Nullable Supplier<Executor> executor, @Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
-
-		Set<Class<? extends Annotation>> myCacheAnnotationTypes = new LinkedHashSet<>(2);
-		myCacheAnnotationTypes.add(MyCache.class);
-		try {
-			myCacheAnnotationTypes.add((Class<? extends Annotation>)
-					ClassUtils.forName("javax.ejb.Asynchronous", MyCacheAnnotationAdvisor.class.getClassLoader()));
-		}
-		catch (ClassNotFoundException ex) {
-			// If EJB 3.1 API not present, simply ignore.
-		}
-		this.advice = buildAdvice(executor, exceptionHandler);
-		this.pointcut = buildPointcut(myCacheAnnotationTypes);
-	}
+    public MyCacheAnnotationAdvisor(
+             @Nullable MyCacheUncaughtExceptionHandler exceptionHandler) {
+        this(SingletonSupplier.ofNullable(exceptionHandler));
+    }
 
 
-	public void setMyCacheAnnotationType(Class<? extends Annotation> asyncAnnotationType) {
-		Assert.notNull(asyncAnnotationType, "'asyncAnnotationType' must not be null");
-		Set<Class<? extends Annotation>> asyncAnnotationTypes = new HashSet<>();
-		asyncAnnotationTypes.add(asyncAnnotationType);
-		this.pointcut = buildPointcut(asyncAnnotationTypes);
-	}
+    @SuppressWarnings("unchecked")
+    public MyCacheAnnotationAdvisor(@Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
+        Set<Class<? extends Annotation>> myCacheAnnotationTypes = new LinkedHashSet<>(2);
+        myCacheAnnotationTypes.add(MyCache.class);
+        this.advice = buildAdvice(exceptionHandler);
+        this.pointcut = buildPointcut(myCacheAnnotationTypes);
+    }
 
 
-	@Override
-	public void setBeanFactory(BeanFactory beanFactory) {
-		if (this.advice instanceof BeanFactoryAware) {
-			((BeanFactoryAware) this.advice).setBeanFactory(beanFactory);
-		}
-	}
+    public void setMyCacheAnnotationType(Class<? extends Annotation> myCacheAnnotationType) {
+        Assert.notNull(myCacheAnnotationType, "'myCacheAnnotationType' must not be null");
+        Set<Class<? extends Annotation>> myCacheAnnotationTypes = new HashSet<>();
+        myCacheAnnotationTypes.add(myCacheAnnotationType);
+        this.pointcut = buildPointcut(myCacheAnnotationTypes);
+    }
 
 
-	@Override
-	public Advice getAdvice() {
-		return this.advice;
-	}
-
-	@Override
-	public Pointcut getPointcut() {
-		return this.pointcut;
-	}
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) {
+        if (this.advice instanceof BeanFactoryAware) {
+            ((BeanFactoryAware) this.advice).setBeanFactory(beanFactory);
+        }
+    }
 
 
-	protected Advice buildAdvice(
-			@Nullable Supplier<Executor> executor, @Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
+    @Override
+    public Advice getAdvice() {
+        return this.advice;
+    }
 
-		AnnotationMyCacheExecutionInterceptor interceptor = new AnnotationMyCacheExecutionInterceptor(null);
-		interceptor.configure(executor, exceptionHandler);
-		return interceptor;
-	}
+    @Override
+    public Pointcut getPointcut() {
+        return this.pointcut;
+    }
 
 
-	protected Pointcut buildPointcut(Set<Class<? extends Annotation>> asyncAnnotationTypes) {
-		ComposablePointcut result = null;
-		for (Class<? extends Annotation> asyncAnnotationType : asyncAnnotationTypes) {
-			Pointcut cpc = new AnnotationMatchingPointcut(asyncAnnotationType, true);
-			Pointcut mpc = new AnnotationMatchingPointcut(null, asyncAnnotationType, true);
-			if (result == null) {
-				result = new ComposablePointcut(cpc);
-			}
-			else {
-				result.union(cpc);
-			}
-			result = result.union(mpc);
-		}
-		return (result != null ? result : Pointcut.TRUE);
-	}
+    protected Advice buildAdvice(@Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
+
+        AnnotationMyCacheExecutionInterceptor interceptor = new AnnotationMyCacheExecutionInterceptor(null);
+        interceptor.configure( exceptionHandler);
+        return interceptor;
+    }
+
+
+    protected Pointcut buildPointcut(Set<Class<? extends Annotation>> myCacheAnnotationTypes) {
+        ComposablePointcut result = null;
+        for (Class<? extends Annotation> myCacheAnnotationType : myCacheAnnotationTypes) {
+            Pointcut cpc = new AnnotationMatchingPointcut(myCacheAnnotationType, true);
+            Pointcut mpc = new AnnotationMatchingPointcut(null, myCacheAnnotationType, true);
+            if (result == null) {
+                result = new ComposablePointcut(cpc);
+            } else {
+                result.union(cpc);
+            }
+            result = result.union(mpc);
+        }
+        return (result != null ? result : Pointcut.TRUE);
+    }
 
 }
