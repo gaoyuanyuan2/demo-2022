@@ -30,6 +30,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.function.Supplier;
 
+/**
+ * 缓存异常处理器
+ */
 public abstract class MyCacheExecutionAspectSupport implements BeanFactoryAware {
 
 

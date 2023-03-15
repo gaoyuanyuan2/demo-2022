@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.demo2022.spring.aop2023.annotation;
+package com.example.demo2022.spring.aop2023.config;
 
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheUncaughtExceptionHandler;
 import org.springframework.lang.Nullable;
 
-import java.util.Map;
-
 public interface MyCacheConfigurer {
 
 
-    @Nullable
-    default Map<String, String> getCache() {
-        return null;
-    }
-
- 
     @Nullable
     default MyCacheUncaughtExceptionHandler getMyCacheUncaughtExceptionHandler() {
         return null;

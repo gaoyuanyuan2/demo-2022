@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 /**
+ * 执行的Interceptor
  * {@link AsyncExecutionInterceptor}
  */
 

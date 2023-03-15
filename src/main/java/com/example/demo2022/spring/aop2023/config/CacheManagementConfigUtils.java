@@ -16,30 +16,7 @@
 
 package com.example.demo2022.spring.aop2023.config;
 
-/**
- * Configuration constants for internal sharing across subpackages.
- *
- * @author Juergen Hoeller
- * @since 4.1
- */
+
 public abstract class CacheManagementConfigUtils {
-
-	/**
-	 * The bean name of the internally managed Scheduled annotation processor.
-	 */
-	public static final String SCHEDULED_ANNOTATION_PROCESSOR_BEAN_NAME =
-			"org.springframework.context.annotation.internalScheduledAnnotationProcessor";
-
-	/**
-	 * The bean name of the internally managed Async annotation processor.
-	 */
-	public static final String CACHE_ANNOTATION_PROCESSOR_BEAN_NAME =
-			"myCacheAnnotationBeanPostProcessor";
-
-	/**
-	 * The bean name of the internally managed AspectJ async execution aspect.
-	 */
-	public static final String ASYNC_EXECUTION_ASPECT_BEAN_NAME =
-			"org.springframework.scheduling.config.internalAsyncExecutionAspect";
-
+    public static final String CACHE_ANNOTATION_PROCESSOR_BEAN_NAME = "myCacheAnnotationBeanPostProcessor";
 }

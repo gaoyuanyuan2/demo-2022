@@ -16,6 +16,7 @@
 
 package com.example.demo2022.spring.aop2023.annotation;
 
+import com.example.demo2022.spring.aop2023.config.ProxyMyCacheConfiguration;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.lang.Nullable;

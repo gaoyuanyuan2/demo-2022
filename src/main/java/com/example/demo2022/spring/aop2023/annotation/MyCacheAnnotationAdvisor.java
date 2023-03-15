@@ -31,11 +31,12 @@ import org.springframework.util.function.SingletonSupplier;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-
+/**
+ * 自定义缓存 Advisor（存储advice 和 pointcut）
+ */
 @SuppressWarnings("serial")
 public class MyCacheAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
@@ -45,12 +46,12 @@ public class MyCacheAnnotationAdvisor extends AbstractPointcutAdvisor implements
 
 
     public MyCacheAnnotationAdvisor() {
-        this( (Supplier<MyCacheUncaughtExceptionHandler>) null);
+        this((Supplier<MyCacheUncaughtExceptionHandler>) null);
     }
 
 
     public MyCacheAnnotationAdvisor(
-             @Nullable MyCacheUncaughtExceptionHandler exceptionHandler) {
+            @Nullable MyCacheUncaughtExceptionHandler exceptionHandler) {
         this(SingletonSupplier.ofNullable(exceptionHandler));
     }
 
@@ -91,14 +92,25 @@ public class MyCacheAnnotationAdvisor extends AbstractPointcutAdvisor implements
     }
 
 
+    /**
+     * 构建Advice执行器
+     *
+     * @param exceptionHandler 异常处理
+     * @return Advice执行器
+     */
     protected Advice buildAdvice(@Nullable Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler) {
-
         AnnotationMyCacheExecutionInterceptor interceptor = new AnnotationMyCacheExecutionInterceptor(null);
-        interceptor.configure( exceptionHandler);
+        interceptor.configure(exceptionHandler);
         return interceptor;
     }
 
 
+    /**
+     * 解析注解 获取Pointcut 拦截条件
+     *
+     * @param myCacheAnnotationTypes
+     * @return Pointcut
+     */
     protected Pointcut buildPointcut(Set<Class<? extends Annotation>> myCacheAnnotationTypes) {
         ComposablePointcut result = null;
         for (Class<? extends Annotation> myCacheAnnotationType : myCacheAnnotationTypes) {

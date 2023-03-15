@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.demo2022.spring.aop2023.annotation;
+package com.example.demo2022.spring.aop2023.config;
 
+import com.example.demo2022.spring.aop2023.annotation.EnableMyCache;
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheUncaughtExceptionHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractMyCacheConfiguration implements ImportAware {
 
     @Nullable
-    protected AnnotationAttributes enableMyCache;
+    protected AnnotationAttributes enableMyCacheAttributes;
 
     @Nullable
     protected Supplier<MyCacheUncaughtExceptionHandler> exceptionHandler;
@@ -45,9 +46,9 @@ public abstract class AbstractMyCacheConfiguration implements ImportAware {
 
     @Override
     public void setImportMetadata(AnnotationMetadata importMetadata) {
-        this.enableMyCache = AnnotationAttributes.fromMap(
+        this.enableMyCacheAttributes = AnnotationAttributes.fromMap(
                 importMetadata.getAnnotationAttributes(EnableMyCache.class.getName()));
-        if (this.enableMyCache == null) {
+        if (this.enableMyCacheAttributes == null) {
             throw new IllegalArgumentException(
                     "@EnableMyCache is not present on importing class " + importMetadata.getClassName());
         }

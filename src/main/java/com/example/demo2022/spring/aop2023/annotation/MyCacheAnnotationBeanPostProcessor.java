@@ -28,6 +28,9 @@ import org.springframework.util.function.SingletonSupplier;
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
 
+/**
+ * Advisor 缓存后置处理器
+ */
 
 @SuppressWarnings("serial")
 public class MyCacheAnnotationBeanPostProcessor extends AbstractBeanFactoryAwareAdvisingPostProcessor {

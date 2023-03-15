@@ -18,10 +18,6 @@ package com.example.demo2022.spring.aop2023.annotation;
 
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheExecutionInterceptor;
 import com.example.demo2022.spring.aop2023.interceptor.MyCacheUncaughtExceptionHandler;
-import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.lang.Nullable;
-
-import java.lang.reflect.Method;
 
 
 public class AnnotationMyCacheExecutionInterceptor extends MyCacheExecutionInterceptor {
@@ -36,15 +32,5 @@ public class AnnotationMyCacheExecutionInterceptor extends MyCacheExecutionInter
         super(exceptionHandler);
     }
 
-
-    @Override
-    @Nullable
-    protected String getExecutorQualifier(Method method) {
-        MyCache myCache = AnnotatedElementUtils.findMergedAnnotation(method, MyCache.class);
-        if (myCache == null) {
-            myCache = AnnotatedElementUtils.findMergedAnnotation(method.getDeclaringClass(), MyCache.class);
-        }
-        return (myCache != null ? myCache.value() : null);
-    }
 
 }
