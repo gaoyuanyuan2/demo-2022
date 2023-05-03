@@ -12,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @author 小马哥
  * @since 2018/5/15
  */
-@SpringBootApplication(scanBasePackages = "com.example.demo2022.spring.condition.calculate")
+@SpringBootApplication(scanBasePackages = "com.example.demo2022")
 public class CalculateServiceBootstrap {
 
     public static void main(String[] args) {
